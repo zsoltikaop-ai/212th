@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>212th - Foxtrot Company • Elite Operations</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;600&display=swap"
+        rel="stylesheet">
+    <style>
+        a {
+            color: #ffb347;
+        }
+
+        :root {
+            --bg: #070708;
+            --accent: #ffcc4d;
+            --accent2: #ffb347;
+            --muted: #bfbfbf;
+            --maxw: 1100px;
+        }
+
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            font-family: Rajdhani, system-ui, Arial;
+            background: radial-gradient(ellipse at center, #0d0d0d 0%, #020202 80%);
+            color: #fefbf3;
+            overflow-x: hidden
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image: radial-gradient(#ffcc4d 1px, transparent 1px), radial-gradient(#ffcc4d 1px, transparent 1px);
+            background-size: 2px 2px, 3px 3px;
+            background-position: 0 0, 60px 140px;
+            opacity: 0.06;
+            animation: twinkle 8s infinite linear
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.05
+            }
+
+            50% {
+                opacity: 0.1
+            }
+
+            100% {
+                opacity: 0.05
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: var(--maxw);
+            margin: 60px auto;
+            padding: 32px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(40, 30, 0, 0.2), rgba(0, 0, 0, 0.8));
+            box-shadow: 0 0 60px rgba(255, 204, 77, 0.08), inset 0 0 20px rgba(255, 204, 77, 0.05);
+            border: 1px solid rgba(255, 204, 77, 0.1)
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            margin-bottom: 28px
+        }
+
+        .emblem {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at center, #332700 0%, #0d0c08 90%);
+            box-shadow: 0 0 20px rgba(255, 204, 77, 0.2), inset 0 0 12px rgba(255, 204, 77, 0.1)
+        }
+
+        .emblem::before {
+            content: 'ƒx';
+            font-family: Orbitron, monospace;
+            font-size: 42px;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(255, 204, 77, 0.4);
+            letter-spacing: 1px
+        }
+
+        .titlebox h1 {
+            font-family: Orbitron, monospace;
+            font-size: 32px;
+            margin: 0;
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(255, 204, 77, 0.3)
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 4px;
+            letter-spacing: 1px
+        }
+
+        .status {
+            margin-left: auto;
+            text-align: right
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255, 204, 77, 0.1);
+            border: 1px solid rgba(255, 204, 77, 0.15);
+            color: var(--accent);
+            font-weight: 700
+        }
+
+        .status small {
+            display: block;
+            color: var(--muted);
+            margin-top: 6px;
+            font-size: 12px
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 26px
+        }
+
+        section {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.03)
+        }
+
+        h2 {
+            font-family: Orbitron, monospace;
+            font-size: 16px;
+            color: var(--accent);
+            margin-top: 0;
+            text-transform: uppercase
+        }
+
+        p,
+        li {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #f9f5e6
+        }
+
+        .officers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px
+        }
+
+        .officer {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04)
+        }
+
+        .officer b {
+            color: var(--accent2)
+        }
+
+        ul {
+            padding-left: 20px
+        }
+
+        .crawl-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            margin-top: 16px;
+            border-radius: 8px
+        }
+
+        .crawl {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            padding: 10px 20px;
+            text-align: center;
+            transform-origin: 50% 100%;
+            animation: crawl 28s linear infinite
+        }
+
+        .crawl p {
+            margin: 8px 0;
+            color: #ffe7a8;
+            line-height: 1.5;
+            font-weight: 500
+        }
+
+        @keyframes crawl {
+            0% {
+                transform: rotateX(22deg) translateY(120%)
+            }
+
+            100% {
+                transform: rotateX(22deg) translateY(-260%)
+            }
+        }
+
+        aside .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.05));
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            margin-bottom: 14px
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        @media(max-width:900px) {
+            main {
+                grid-template-columns: 1fr
+            }
+
+            .status {
+                text-align: left;
+                margin-top: 10px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <header>
+            <div class="emblem" aria-label="Foxtrot Emblem"></div>
+            <div class="titlebox">
+                <h1>212th Battalion — Foxtrot Company</h1>
+                <div class="subtitle">Elite Specialists • Stealth • Elimination • CQC</div>
+            </div>
+            <div class="status">
+                <div class="status-tag">Open — Tryouts Only</div>
+                <small>For inquiries, contact CO - 3722 "Button"</small>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <h2>Overview</h2>
+                <p>Foxtrot Company is the elite strike element of the 212th Battalion. Composed of veteran clones and
+                    hand-selected operatives, Foxtrot specializes in rapid eliminations, stealth infiltration, and
+                    high-value target neutralization. They operate behind enemy lines, often under blackout conditions,
+                    where silence and precision are paramount.</p>
+
+                <h2>Mission Set</h2>
+                <ul>
+                    <li><b>Primary:</b> Covert elimination of high-value targets including enemy commanders and
+                        artillery crews.</li>
+                    <li><b>Secondary:</b> CQC assaults and fast clearances of enemy strongholds.</li>
+                    <li><b>Tertiary:</b> Disruption of command networks and coordination of black ops within the 212th.
+                    </li>
+                </ul>
+
+                <h2>Training</h2>
+                <p>Members of Foxtrot undergo advanced close-quarters combat and stealth training beyond standard clone
+                    protocols. Every operative is skilled in unarmed combat, infiltration, demolition, and silent
+                    takedowns. Tryouts are rigorous, testing reflexes, endurance, and mental fortitude.</p>
+
+                <h2>Philosophy</h2>
+                <p>Foxtrot stands apart — they are the blade in the dark. They believe in efficiency over spectacle,
+                    operating with discipline and discretion. Their motto: <i>“Strike unseen, leave nothing
+                        standing.”</i></p>
+
+                <div class="crawl-wrap">
+                    <div class="crawl">
+                        <p>ELITE: Born from the fires of battle, Foxtrot are the unseen executioners of the 212th.</p>
+                        <p>STRIKE: When others hesitate, they act — fast, quiet, final.</p>
+                        <p>LEGACY: Their deeds are whispers in the archives, but their impact echoes across the stars.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <aside>
+                <div class="card">
+                    <h2>Command</h2>
+                    <div class="officers">
+                        <div class="officer"><b>CO:</b> CO - 3722 "Button"<br><small>Company Commander</small></div>
+                        <div class="officer"><b>XO:</b> CO - 4651 "Flaco"<br><small>Executive Officer</small></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Specialization</h2>
+                    <ul>
+                        <li>Stealth Operations & Infiltration</li>
+                        <li>Close-Quarters Combat</li>
+                        <li>Targeted Elimination Missions</li>
+                        <li>Intelligence & Recon Integration</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>Recruitment</h2>
+                    <p>Entry into Foxtrot Company is by tryouts only. Candidates must demonstrate superior combat
+                        ability, adaptability, and discipline. Those who pass the trials are inducted into the elite —
+                        the Republic’s silent enforcers.</p>
+                </div>
+
+                <footer>
+                    Designation: Specialist Company • Status: Open — Tryouts Only • Motto: “Strike unseen, leave nothing
+                    standing.” <p><a href="212thbattalion.html"><b>212th main page</b></a></p>
+                </footer>
+            </aside>
+        </main>
+    </div>
+</body>
+
+</html>
