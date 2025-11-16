@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>212th - Ghost Company • Armored Infantry</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- Intro Animation --- */
+        #intro {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: black;
+            z-index: 9999;
+            animation: fadeOut 2s ease 1.5s forwards;
+        }
+
+        #intro h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 60px;
+            color: #FF8C00;
+            /* Ghost Company unique orange */
+            text-shadow: 0 0 20px #FF8C00;
+            animation: textFade 1.3s ease-out forwards;
+        }
+
+        @keyframes textFade {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        a {
+            color: #FF8C00;
+            text-decoration: none;
+        }
+
+        :root {
+            --bg: #0b0f1e;
+            --panel: #111a33;
+            --accent: #FF8C00;
+            /* Ghost Company orange */
+            --muted: #7fa1c4;
+            --glass: rgba(255, 255, 255, 0.04);
+            --maxw: 1050px;
+        }
+
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            font-family: Rajdhani, system-ui, Arial;
+            background: radial-gradient(ellipse at center, #0d1a2e 0%, #03060f 80%);
+            color: #e8f6ff;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image: radial-gradient(#FF8C00 1px, transparent 1px), radial-gradient(#FF8C00 1px, transparent 1px);
+            background-size: 2px 2px, 3px 3px;
+            background-position: 0 0, 50px 100px;
+            opacity: 0.07;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: var(--maxw);
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 40px rgba(255, 140, 0, 0.08), inset 0 0 20px rgba(255, 140, 0, 0.05);
+        }
+
+        header {
+            display: grid;
+            grid-template-columns: 150px auto;
+            gap: 24px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .crest {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.3), inset 0 0 12px rgba(255, 140, 0, 0.2);
+        }
+
+        .crest img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .title-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-family: Orbitron, monospace;
+            font-weight: 700;
+            font-size: 32px;
+            margin: 0;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        .status-bar {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .status {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        section {
+            background: linear-gradient(180deg, rgba(255, 140, 0, 0.02), rgba(0, 0, 0, 0.05));
+            border: 1px solid rgba(255, 140, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        h2 {
+            font-family: Orbitron, monospace;
+            font-size: 16px;
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        .lead {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #cbe1ff;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .officer {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid rgba(255, 140, 0, 0.05);
+        }
+
+        .officer b {
+            color: #FF8C00;
+        }
+
+        .officer small {
+            color: var(--muted);
+        }
+
+        .list {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        .crawl-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .crawl {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            padding: 10px 20px;
+            text-align: center;
+            transform-origin: 50% 100%;
+            animation: crawl 15s linear infinite;
+        }
+
+        .crawl p {
+            margin: 8px 0;
+            color: #FF8C00;
+            line-height: 1.4;
+            text-shadow: 0 0 8px #FF8C00;
+        }
+
+        @keyframes crawl {
+            0% {
+                transform: rotateX(18deg) translateY(140%);
+            }
+
+            100% {
+                transform: rotateX(18deg) translateY(-260%);
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        footer span {
+            color: var(--accent);
+        }
+
+        @media(max-width:800px) {
+            header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .crest {
+                margin: 0 auto;
+            }
+
+            main {
+                gap: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="intro">
+        <h1>GHOST COMPANY</h1>
+    </div>
+    <div class="stars" aria-hidden="true"></div>
+    <div class="container">
+        <header>
+            <div class="crest"><img src="212thlogo.png" alt="212th Ghost Company logo"></div>
+            <div class="title-block">
+                <h1>212th Battalion — Ghost Company</h1>
+                <div class="subtitle">Armored Infantry • Juggernauts • AT‑TE Operations</div>
+                <div class="status-bar">Designation: Infantry Company • Status: <span class="status">Open</span></div>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <p class="lead">Ghost Company is one of the two standard infantry companies of the 212th Battalion.
+                    Tasked with armored warfare and direct assaults, they represent the armored might of the division.
+                    Their operations rely heavily on heavy vehicles such as AT‑TEs and Juggernauts, allowing them to
+                    spearhead assaults, defend fortified positions, and sustain prolonged engagements under heavy fire.
+                </p>
+            </section>
+
+            <section>
+                <h2>Command Structure</h2>
+                <div class="command-grid">
+                    <div class="officer"><b>Commanding Officer:</b> CO‑8432 “Lemon”<br><small>Field commander and
+                            armored warfare specialist.</small></div>
+                    <div class="officer"><b>Executive Officer:</b> CO‑9922 “Hades”<br><small>Supports logistics, armor
+                            deployment, and operational coordination.</small></div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Mission Set</h2>
+                <div class="list">
+                    <p><b>Primary:</b> Armored spearhead operations using AT‑TEs and Juggernauts to crush enemy
+                        positions and secure objectives.</p>
+                    <p><b>Secondary:</b> Heavy infantry support for mechanized and airborne elements of the 212th.</p>
+                    <p><b>Tertiary:</b> Defensive fortifications and convoy escort under heavy resistance.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Doctrine & Combat Role</h2>
+                <div class="list">Ghost Company employs a doctrine of overwhelming firepower and resilience. Their
+                    tactical strength lies in armor coordination — infantry supported by tanks and walkers for
+                    combined-arms efficiency. Infantry squads operate close to armored units, protecting vulnerable
+                    vehicle flanks and clearing obstacles to maintain forward momentum during sieges or urban combat.
+                </div>
+            </section>
+
+            <section>
+                <h2>Training & Logistics</h2>
+                <div class="list">Members of Ghost Company undergo specialized vehicle training for maintenance and
+                    gunnery on Republic heavy armor. Their cross-training ensures flexibility, allowing troopers to
+                    rotate between infantry and vehicle crews. Logistics units emphasize fuel management, repair
+                    operations, and tactical redeployment under combat conditions.</div>
+            </section>
+
+            <section>
+                <h2>Vehicles & Equipment</h2>
+                <div class="list">
+                    <ul style="padding-left:18px">
+                        <li><b>AT‑TE:</b> Primary assault walker for mobile fire support and siege warfare.</li>
+                        <li><b>Juggernaut (HAVw A6):</b> Heavy transport and front-line breakthrough vehicle.</li>
+                        <li><b>AT‑RT & BARC Speeders:</b> Reconnaissance and fast-response support.</li>
+                        <li><b>Infantry Gear:</b> Reinforced armor with integrated HUDs and comm systems designed for
+                            vehicle coordination.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>Company Legacy</h2>
+                <div class="list">Ghost Company is renowned for their stoic discipline and mechanical precision. They
+                    have fought in some of the most brutal sieges of the Clone Wars, their walkers and Juggernauts
+                    forming the steel backbone of Republic offensives. Their call sign — “Ghosts” — stems from their
+                    ability to emerge from the dust and debris of battle seemingly unstoppable, executing coordinated
+                    strikes with eerie silence and devastating accuracy.</div>
+            </section>
+
+            <section>
+                <div class="crawl-wrap">
+                    <div class="crawl">
+                        <p>FORGED IN STEEL: The Ghost Company stands unbroken amidst the chaos of war.</p>
+                        <p>ADVANCE: With engines roaring and cannons blazing, they lead the armored columns of the
+                            212th.</p>
+                        <p>ENDURE: Where the enemy digs in, the Ghosts roll through — methodical, unstoppable, and ever
+                            loyal to the Republic.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div>Designation: Infantry Company • Specialization: Armored Vehicles • Status: <span>Open</span></div>
+                <div style="margin-top:6px">For operations or enlistment inquiries contact CO‑8432 “Lemon”. <p><a
+                            href="212thbattalion.html"><b>212th main page</b></a></p>
+                </div>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

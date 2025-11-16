@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>212th - Airborne Company • Aerial Infantry</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;600&display=swap"
+        rel="stylesheet">
+    <style>
+        a {
+            color: #FFA500;
+        }
+
+        #intro {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            z-index: 9999;
+            animation: fadeOut 2s ease 1.5s forwards;
+        }
+
+        #intro h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 60px;
+            color: #FFA500;
+            text-shadow: 0 0 30px rgba(255, 165, 0, 0.8);
+            animation: textFade 1.3s ease-out forwards, riseUp 1.5s ease-out forwards;
+            letter-spacing: 3px;
+        }
+
+        @keyframes textFade {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes riseUp {
+            0% {
+                transform: translateY(20px) scale(0.9);
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* --- Base Theme --- */
+        :root {
+            --bg: #03040a;
+            --panel: #071028;
+            --accent: #FFA500;
+            --muted: #9bb0c8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --maxw: 1000px;
+            --glow: rgba(255, 165, 0, 0.7);
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Rajdhani, system-ui, sans-serif;
+            background: radial-gradient(ellipse at center, #081223 0%, #02030a 60%);
+            color: #e0e0e0;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image: radial-gradient(#fff 1px, transparent 1px), radial-gradient(#fff 1px, transparent 1px);
+            background-size: 2px 2px, 3px 3px;
+            background-position: 0 0, 50px 100px;
+            opacity: 0.08
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .crest {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow);
+        }
+
+        .crest img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-family: Orbitron, monospace;
+            font-size: 32px;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
+            margin: 10px 0;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            text-shadow: none;
+            /* Removed glow */
+            font-size: 14px;
+        }
+
+        /* --- Layout --- */
+        .container {
+            box-shadow: 0 8px 40px rgba(2, 6, 23, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            flex-direction: row;
+            max-width: var(--maxw);
+            margin: 0 auto;
+            gap: 20px;
+            padding: 0 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        aside {
+            width: 300px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+        /* --- Panels --- */
+        .panel {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(0, 0, 0, 0.02));
+            border: 1px solid #FFA500;
+            border-radius: 12px;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease;
+        }
+
+        .panel.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .panel h2 {
+            font-family: Orbitron, monospace;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
+            margin-bottom: 10px;
+        }
+
+        /* Remove glow from non-heading, non-crawl text */
+        .lead,
+        .list,
+        .attrs,
+        .attr,
+        .list b {
+            text-shadow: none;
+        }
+
+        .lead {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #d9eefc;
+        }
+
+        .list,
+        .attrs {
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .attrs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .attr {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        /* --- Crawl --- */
+        .crawl-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 180px;
+            border-radius: 10px;
+            margin-top: 16px;
+        }
+
+        .crawl {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 10px;
+            transform-origin: 50% 100%;
+            animation: crawl 30s linear infinite;
+        }
+
+        .crawl p {
+            margin: 6px 0;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
+            line-height: 1.5;
+        }
+
+        @keyframes crawl {
+            0% {
+                transform: rotateX(20deg) translateY(140%);
+            }
+
+            100% {
+                transform: rotateX(20deg) translateY(-260%);
+            }
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        @media(max-width:1024px) {
+            .container {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                position: relative;
+                top: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="intro">
+        <h1>AIRBORNE COMPANY</h1>
+    </div>
+    <div class="stars"></div>
+
+    <header>
+        <div class="crest"><img src="212thlogo.png" alt="Airborne Emblem"></div>
+        <h1>212th Battalion — Airborne Company</h1>
+        <div class="subtitle">Aerial Infantry • Quick Reaction • LAAT & Jetpack Deployments</div>
+    </header>
+
+    <div class="container">
+        <main>
+            <section class="panel">
+                <div class="lead">The Airborne Company of the 212th Battalion specializes in high‑risk insertions from
+                    LAAT gunships, rapid jetpack assaults, and holding vital forward objectives during large scale
+                    operations. Operating as the vanguard and a lightning reaction force, Airborne companies are trained
+                    to operate autonomously behind enemy lines and to seize or defend critical terrain until
+                    reinforcements arrive.</div>
+            </section>
+
+            <section class="panel">
+                <h2>Mission Set</h2>
+                <div class="list">
+                    <p><b>Primary:</b> Quick Reaction Force — respond to emergent threats and secure objectives via
+                        aerial insertion.</p>
+                    <p><b>Secondary:</b> Forward objective holding, reconnaissance-in-force, and providing ground
+                        support for mechanized elements.</p>
+                    <p><b>Tertiary:</b> Support combined arms operations with precision insertions, sabotage, and rapid
+                        extraction.</p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Operational Doctrine</h2>
+                <div class="list">Airborne Company doctrine emphasizes speed, precision, and disciplined small‑unit
+                    leadership. Platoons are organized to operate in loose formations after insertion, using terrain
+                    and urban cover to their advantage. Typical deployment methods include LAAT drops for heavy
+                    squads and single‑operator jetpack insertions for recon or commando detachments. Emphasis is
+                    placed on radio discipline, rapid objective securing, and coordination with air support.</div>
+            </section>
+
+            <section class="panel">
+                <h2>Training & Readiness</h2>
+                <div class="list">All troopers undergo advanced aerial insertion training, survival & evasion,
+                    close-quarters combat, and LAAT‑compatible embarkation drills. Leadership candidates receive
+                    additional education in rapid decision making, small unit tactics, and combined arms
+                    coordination. Periodic company‑level exercises simulate long‑range insertions and sustained
+                    objective defense under attrition.</div>
+            </section>
+
+            <section class="panel">
+                <h2>Equipment & Vehicles</h2>
+                <div class="attrs">
+                    <div class="attr"><b>Primary insertion:</b>LAAT transport gunships for mass drops and armored
+                        insertions.</div>
+                    <div class="attr"><b>Personal gear:</b> Jetpacks, reinforced armor, and
+                        short‑range support weaponry optimized for rapid fighting in built-up areas.</div>
+                    <div class="attr"><b>Support:</b>Light ground vehicles, anti‑armor teams, and expendable UAV
+                        recon assets.</div>
+                    <div class="attr"><b>Specialists:</b>Demolition experts, recon jumpers, and AT sections for
+                        anti‑vehicle interdiction.</div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Notable Engagements & Legacy</h2>
+                <div class="list">The Airborne Company has a reputation for decisive action on high‑value
+                    objectives. Their hallmark operations include rapid seizure of orbital relay sites, cutting
+                    enemy supply lines during campaign surges, and daring night insertions behind fortified
+                    positions. Their successes are credited with turning the tide in several multi‑regimental
+                    operations and have made them a backbone of the 212th's ground strategy.
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="crawl-wrap">
+                    <div class="crawl">
+                        <p>UNITED:The 212th Airborne Company answers the call where speed and precision are paramount.
+                        </p>
+                        <p>DEPLOY: From the port bays of LAATs to the stark ridgelines of contested worlds, they insert
+                            quickly, seize objectives, and hold until reinforcements arrive.</p>
+                        <p>ENDURE:Trained for attrition and sustained defense, Airborne troopers adapt under fire — few
+                            units match their grit.</p>
+                    </div>
+                </div>
+                <footer>
+                    <div>Designation: Aerial Infantry Company • Quick Reaction & Aerial Deployment</div>
+                    <div>Contact CO - 0345 "Manz" via secure channel. <p><a href="212thbattalion.html"><b>212th main
+                                    page</b></a></p>
+                    </div>
+                </footer>
+            </section>
+        </main>
+
+        <aside>
+            <section class="panel">
+                <h2>Command Roster</h2>
+                <div class="list">
+                    <div><b>CO:</b> CO - 0345 "Manz" — Strategic commander, veteran airborne tactician</div>
+                    <div style="margin-top:6px"><b>XO:</b> CO - 7175 "Talon" — Logistics and operations lead</div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Company Profile</h2>
+                <div class="list">
+                    <p><b>Strength:</b> Standard infantry company sized element; modular for surge operations.</p>
+                    <p><b>Role:</b> Aerial Infantry and Quick Reaction Force — holds key objectives and initiates
+                        frontline assaults.</p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Operational Notes</h2>
+                <div class="list">
+                    <ul style="padding-left:18px; margin:6px 0; color:var(--muted)">
+                        <li>Expect rapid redeployments and short notice callups.</li>
+                        <li>Jetpack deployments are limited and prioritized for recon & specialists.</li>
+                        <li>High attrition operations require cross‑training and redundancy in critical roles.</li>
+                    </ul>
+                </div>
+            </section>
+        </aside>
+    </div>
+
+    <script>
+        const panels = document.querySelectorAll('.panel');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.2 });
+        panels.forEach(panel => observer.observe(panel));
+    </script>
+</body>
+
+</html>
